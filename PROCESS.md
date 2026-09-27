@@ -1,9 +1,9 @@
 # Connect — Build Process Log
 
 ## Current Status
-- Last completed ticket: <epic 1.4 — Refresh token flow + logout/session revocation>
-- Next ticket to start: <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
-- Overall progress: <Epic 0 complete, Epic 1 in progress>
+- Last completed ticket: <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
+- Next ticket to start: <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage>
+- Overall progress: <Epic 1 complete, Epic 2 not started>
 
 ## What's Working
 - Ponytail plugin installed and active
