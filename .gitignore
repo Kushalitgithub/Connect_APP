@@ -1,0 +1,39 @@
+# Environment variables
+.env
+.env.*
+
+# Secrets
+*.pem
+*.key
+*.cert
+*.csr
+*.pfx
+*.p12
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+pip-wheel-metadata/
+__pycache__/
+*.py[cod]
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/
