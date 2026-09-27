@@ -7,11 +7,11 @@ Version 1.0 · Read after `Connect_App_Overview.md` and `Connect_PRD.md`.
 A single backend service (Connect API) and one PostgreSQL database serve three frontends. No frontend talks directly to the database or duplicates business logic — all validation, authorization, and state transitions live server-side.
 
 ```
-Connect User (React + Capacitor) ─┐
-Connect Guide (React + Capacitor) ─┼──> Connect API (FastAPI) ──> PostgreSQL
-Connect Admin (React web)         ─┘         │
-                                              ├──> Object Storage (S3-compatible, images/docs)
-                                              └──> WebSocket layer (chat, live notifications)
+Connect User (Expo / React Native) ─┐
+Connect Guide (Expo / React Native) ─┼──> Connect API (FastAPI) ──> PostgreSQL
+Connect Admin (React web)           ─┘         │
+                                                ├──> Object Storage (S3-compatible, images/docs)
+                                                └──> WebSocket layer (chat, live notifications)
 ```
 
 ## 2. Technology Stack
@@ -23,7 +23,7 @@ Connect Admin (React web)         ─┘         │
 - JWT — stateless auth tokens (access + refresh)
 - boto3 — S3-compatible object storage for images and verification documents
 
-**Frontend (all three products)**
+**Connect Admin (web only)**
 - React 18 + TypeScript
 - Vite build tool
 - Tailwind CSS 4
@@ -31,9 +31,13 @@ Connect Admin (React web)         ─┘         │
 - React Router
 
 **Mobile (Connect User, Connect Guide)**
-- Capacitor wraps the React/Vite build into native iOS and Android shells (see `README.md`)
-- Native plugins as needed: `@capacitor/camera`, `@capacitor/geolocation`, `@capacitor/push-notifications`, `@capacitor/filesystem`
-- PWA support retained for browser access
+- Expo (React Native) — compiles to genuinely native iOS/Android UI, not a WebView
+- Expo Router for navigation
+- NativeWind (Tailwind syntax for React Native) for styling, mapped from the same design tokens as Connect Admin
+- Axios for API calls (shared typed client pattern with Admin)
+- Native device access via Expo SDK modules: `expo-camera`, `expo-location`, `expo-notifications`, `expo-file-system`
+- EAS Build (Expo Application Services) for compiling and signing native binaries
+- No PWA/browser mode — Connect User and Connect Guide ship as native apps only
 
 **Realtime**
 - WebSocket connections for chat and live booking/notification updates
@@ -43,8 +47,8 @@ Connect Admin (React web)         ─┘         │
 ```
 /backend/                    FastAPI app, Alembic migrations, admin bootstrap script
 /web/connect_admin/          React web app (staff)
-/mobile/connect_user/        React + Capacitor app (tourists)
-/mobile/connect_guide/       React + Capacitor app (guides)
+/mobile/connect_user/        Expo (React Native) app (tourists)
+/mobile/connect_guide/       Expo (React Native) app (guides)
 /docs/                       This document set
 ```
 
@@ -87,7 +91,7 @@ Connect Admin (React web)         ─┘         │
 
 - Backend: containerized FastAPI service, PostgreSQL managed instance.
 - Connect Admin: static build served behind auth-gated hosting.
-- Connect User / Connect Guide: web build deployed as PWA; native builds produced via Capacitor for App Store / Play Store distribution.
+- Connect User / Connect Guide: native builds produced via EAS Build, distributed through TestFlight (iOS) and internal/production tracks (Android Play Store).
 
 ## 9. Environments
 

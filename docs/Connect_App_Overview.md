@@ -10,8 +10,8 @@ Connect ships as three coordinated products sharing one backend and one database
 
 | Product | Audience | Platform |
 |---|---|---|
-| **Connect User** | Tourists / travelers | React + Capacitor (native iOS/Android + PWA) |
-| **Connect Guide** | Local guides | React + Capacitor (native iOS/Android + PWA) |
+| **Connect User** | Tourists / travelers | Expo (React Native) — native iOS/Android |
+| **Connect Guide** | Local guides | Expo (React Native) — native iOS/Android |
 | **Connect Admin** | Internal staff / moderators | React web (browser only) |
 
 All three talk to a single **Connect API** (FastAPI) backed by one **PostgreSQL** database, so business rules (booking validity, verification state, roles) are never duplicated client-side.

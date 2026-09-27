@@ -3,7 +3,7 @@
 ## Current Status
 - Last completed ticket: <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
 - Next ticket to start: <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage>
-- Overall progress: <Epic 1 complete, Epic 2 not started>
+- Overall progress: <Epic 1 complete, Epic 2 in progress>
 
 ## What's Working
 - Ponytail plugin installed and active
@@ -18,7 +18,7 @@
 - Admin login endpoint (no public signup path) with JWT token issuance
 
 ## What's In Progress / Partially Done
-- <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
+- <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage> (Started implementation)
 
 ## Decisions & Deviations
 - Used JWT for stateless authentication (as per TAD)
@@ -27,6 +27,7 @@
 - Role is derived from the token and verified against the database (defense in depth)
 - For guides, after signup we create a GuideProfile with verification_status = pending (as per spec)
 - Admin login only (no signup) as per spec (admin accounts are created via bootstrap script or by existing admins)
+- Stack changed from Capacitor to Expo for connect_user/connect_guide; tickets 0.1, 0.5, 0.6, and Epic 1's mobile screens were rebuilt; backend and connect_admin were untouched
 
 ## Known Issues / TODOs
 - <none>
@@ -51,3 +52,4 @@
 | 1.3 | Done | Admin login (no public signup path) |
 | 1.4 | Done | Refresh token flow + logout/session revocation |
 | 1.5 | Done | Auth middleware: role + ownership derivation from session on every protected route |
+| 2.1 | In Progress | Guide onboarding flow: profile info + document upload to private object storage (Started implementation: storage service, config updates, API endpoints) |

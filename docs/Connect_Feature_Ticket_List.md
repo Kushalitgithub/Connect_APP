@@ -6,12 +6,12 @@ Each ticket should be treated as one unit of work for an AI coding agent to comp
 
 ## Epic 0 — Foundations
 - [ ] 0.0 Install and enable Ponytail (`DietrichGebert/ponytail`) in the coding agent before any other ticket — see `Connect_Build_Prompt.md`
-- [ ] 0.1 Repo scaffolding: backend (FastAPI), web/connect_admin, mobile/connect_user, mobile/connect_guide
+- [ ] 0.1 Repo scaffolding: backend (FastAPI), web/connect_admin (React/Vite), mobile/connect_user (Expo/React Native), mobile/connect_guide (Expo/React Native)
 - [ ] 0.2 PostgreSQL schema + Alembic migration setup, base models (User, GuideProfile, TourListing, Availability, Booking, ChatThread, Message, Review, Report)
 - [ ] 0.3 Env config scaffolding (.env.example for all four apps) and docker-compose for local Postgres
 - [ ] 0.4 `create_admin.py` bootstrap script for the first admin account
-- [ ] 0.5 Place `logo_connect.png` in a shared branding location and generate derivatives: favicon, PWA manifest icons, native iOS/Android app icon sets for connect_user and connect_guide (see `Connect_Frontend_Spec.md` §7)
-- [ ] 0.6 Design system foundation: implement color/typography/radii tokens and the shared component set (status chip, verified badge, avatar, rating stars, card, button, input, message bubble, skeleton loader, top status bar, bottom nav, home indicator) per `Connect_Frontend_Spec.md` §2, reused across connect_user and connect_guide
+- [ ] 0.5 Place `logo_connect.png` in a shared branding location and generate derivatives: web favicon for connect_admin, and native iOS/Android app icon + splash screen sets (via Expo `app.json`/`expo-splash-screen`) for connect_user and connect_guide (see `Connect_Frontend_Spec.md` §7)
+- [ ] 0.6 Design system foundation: implement color/typography/radii tokens per `Connect_Frontend_Spec.md` §2. Build the shared component set (status chip, verified badge, avatar, rating stars, card, button, input, message bubble, skeleton loader, top status bar, bottom nav, home indicator) **twice**: once as web/Tailwind components for connect_admin, and once as React Native/NativeWind components shared between connect_user and connect_guide (e.g. via a shared RN component package or copied module) — same tokens and naming, native-appropriate implementation
 
 ## Epic 1 — Auth & Roles
 - [ ] 1.1 Tourist signup/login (email+password), JWT issuance
@@ -76,12 +76,12 @@ Each ticket should be treated as one unit of work for an AI coding agent to comp
 - [ ] 9.1 Endpoint to compute a guide's total from completed bookings' listed prices (read-only tally, no payment processing)
 - [ ] 9.2 Connect Guide: Earnings screen + Dashboard earnings summary, clearly labeled as an estimate
 
-## Epic 10 — Native Mobile Packaging
-- [ ] 10.1 Capacitor integration for connect_user (`npx cap add ios/android`, config, native plugin wiring)
-- [ ] 10.2 Capacitor integration for connect_guide
-- [ ] 10.3 Native push notification wiring (APNs/FCM via `@capacitor/push-notifications`)
-- [ ] 10.4 Camera/geolocation native plugin wiring where the web APIs are replaced
-- [ ] 10.5 Build/signing pipeline for iOS (TestFlight) and Android (internal track)
+## Epic 10 — Native Mobile Build & Release
+- [ ] 10.1 EAS Build configuration for connect_user (`eas.json`, app config, dev/preview/production build profiles)
+- [ ] 10.2 EAS Build configuration for connect_guide
+- [ ] 10.3 Native push notification wiring (APNs/FCM via `expo-notifications` + EAS push credentials)
+- [ ] 10.4 Camera/geolocation native module wiring via `expo-camera` and `expo-location`, with runtime permission prompts
+- [ ] 10.5 Build/signing pipeline for iOS (TestFlight via EAS Submit) and Android (internal track via EAS Submit)
 
 ## Epic 11 — Hardening
 - [ ] 11.1 Rate limiting on auth, booking creation, chat send

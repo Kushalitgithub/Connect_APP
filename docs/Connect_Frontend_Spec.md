@@ -4,11 +4,11 @@ Version 2.0 · Read after `Connect_Security_Access_Spec.md`. Design tokens and s
 
 ## 1. Shared Frontend Principles
 
-- React 18 + TypeScript + Vite across all three products.
-- Tailwind CSS 4 for styling; component-level composition over global overrides.
+- Connect Admin: React 18 + TypeScript + Vite + Tailwind CSS 4, React Router.
+- Connect User / Connect Guide: Expo (React Native) + TypeScript, Expo Router, NativeWind for styling (same design tokens as Admin, mapped to RN syntax) — no Vite/DOM/Tailwind-web on these two.
 - Axios for API calls with a shared, typed API client per app.
-- React Router for navigation.
-- `lucide-react` icons throughout.
+- Component-level composition over global overrides in all three.
+- `lucide-react` on Admin; `lucide-react-native` (or equivalent RN-compatible icon set) on Connect User/Guide.
 - All API-derived state (role, ownership, booking status) is rendered from server responses — the frontend never infers permissions on its own; it reflects what the API allows/returns.
 - The Figma Make prototype uses mock data (`Home.tsx` etc.) — this is prototype-only; production builds wire every screen to the real Connect API per `Connect_TAD.md`, not to mock arrays.
 
@@ -66,7 +66,7 @@ These map directly onto `Booking.status` and `GuideProfile.verification_status` 
 ### 2.7 Shared Components
 Status chip · Verified badge · Avatar (circular, with fallback) · Rating stars · Card (glassmorphism) · Button (primary/secondary/accent) · Input (glassmorphism, focus state) · Message bubble (sent/received) · Skeleton loader · Search/modal overlay · Top status bar (back button, title, actions, light/dark variant) · Bottom nav (floating, glassmorphism) · Home indicator (bottom safe-area bar on mobile).
 
-Build each of these once per app as a shared component — screens compose them rather than re-implementing status colors, chips, or nav per screen.
+Build each of these once per app as a shared component — screens compose them rather than re-implementing status colors, chips, or nav per screen. Connect Admin implements these as web (HTML/Tailwind) components; Connect User and Connect Guide implement them as native React Native components (View/Text/Pressable + NativeWind) — the two component sets share tokens and naming, not code, since they render through different renderers (DOM vs native).
 
 ## 3. Connect User (Tourist App)
 
@@ -94,7 +94,7 @@ Build each of these once per app as a shared component — screens compose them 
 ### 3.3 Key States to Design For
 - Empty states: no bookings yet, no messages yet, no search results.
 - Booking status badges: per §2.2 status chip colors.
-- Offline/PWA: cached last-known guide list and booking list visible when offline; clear "you're offline" indicator.
+- Offline: cached last-known guide list and booking list visible when offline (e.g. via `@react-native-async-storage/async-storage` or a query cache), with a clear "you're offline" indicator.
 
 ## 4. Connect Guide (Guide App)
 
@@ -149,7 +149,7 @@ The Figma Make prototype includes a floating "App Switcher" button to preview To
 ## 7. Branding Assets
 
 - The project logo (`logo_connect.png`) is the canonical brand mark and must be used across all three apps — app icons, splash screens (`splashLogo` animation, §2.5), auth screens, nav headers/wordmark placement — rather than a placeholder or text-only logo.
-- Store it once at a shared/assets location referenced by all three frontends (e.g. `/assets/branding/logo_connect.png`) and generate platform-specific derivatives from it (favicon, PWA manifest icons, and native iOS/Android app icon sets for the Capacitor builds) rather than sourcing a different logo per platform.
+- Store it once at a shared/assets location referenced by all three frontends (e.g. `/assets/branding/logo_connect.png`) and generate platform-specific derivatives from it (web favicon for Admin, and native iOS/Android app icon + splash-screen sets for the Expo builds via `expo-splash-screen`/`app.json` icon config) rather than sourcing a different logo per platform.
 - Check Figma for exact logo lockup, clear-space, and minimum-size rules before placing it in any layout.
 
 ## 8. Design System Notes
@@ -157,7 +157,7 @@ The Figma Make prototype includes a floating "App Switcher" button to preview To
 - Verification badge: a single consistent visual treatment used everywhere a guide is shown (search results, profile, chat header).
 - Status badges (booking, verification) use the shared status-chip component (§2.2, §2.7).
 - Chat UI is shared conceptually between Connect User and Connect Guide (same message bubble treatment, timestamps, read receipts) — implement as a shared component pattern even if the two apps are separate codebases.
-- Mobile apps must respect safe-area insets (notch/home-indicator) on all fixed nav and header elements, including the home-indicator bar — see `Connect_TAD.md` for the Capacitor/native wrapping context.
+- Mobile apps must respect safe-area insets (notch/home-indicator) on all fixed nav and header elements, including the home-indicator bar — use `react-native-safe-area-context`, standard in Expo projects.
 - Responsive target: mobile apps designed for max-width ~480px; Admin is a standard responsive web layout.
 
 ## 9. Build Order Recommendation

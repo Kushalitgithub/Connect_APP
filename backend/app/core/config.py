@@ -1,8 +1,15 @@
 """
 Application configuration module.
 """
-from pydantic import BaseSettings, PostgresDsn, validator
-from typing import List, Union
+try:
+    # Try to import from pydantic-settings (pydantic v2)
+    from pydantic_settings import BaseSettings
+except ImportError:
+    # Fall back to pydantic v1
+    from pydantic import BaseSettings
+
+from pydantic import PostgresDsn, validator
+from typing import List, Union, Any
 import secrets
 
 
@@ -41,6 +48,13 @@ class Settings(BaseSettings):
 
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8080"]
+
+    # S3 Storage
+    S3_ENDPOINT_URL: str = "http://localhost:9000"  # MinIO default
+    S3_ACCESS_KEY: str = "minioadmin"
+    S3_SECRET_KEY: str = "minioadmin"
+    S3_REGION: str = "us-east-1"
+    S3_BUCKET_NAME: str = "connect-verification-docs"
 
     class Config:
         case_sensitive = True

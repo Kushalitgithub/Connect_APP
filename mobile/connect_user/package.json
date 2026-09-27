@@ -1,25 +1,28 @@
 {
   "name": "connect_user",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "main": "index.ts",
   "dependencies": {
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "@expo/vector-icons": "^15.1.1",
+    "expo": "~57.0.25",
+    "expo-constants": "^57.0.19",
+    "expo-secure-store": "^57.0.4",
+    "expo-splash-screen": "^57.0.9",
+    "expo-status-bar": "~57.0.1",
+    "nativewind": "^4.2.7",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.1.1",
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.28",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2",
-    "vite": "^8.3.1"
-  }
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "private": true
 }
