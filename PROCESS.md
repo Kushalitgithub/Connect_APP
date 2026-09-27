@@ -1,8 +1,8 @@
 # Connect — Build Process Log
 
 ## Current Status
-- Last completed ticket: <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
-- Next ticket to start: <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage>
+- Last completed ticket: <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage>
+- Next ticket to start: <epic 2.2 — Admin verification queue endpoint + UI: list pending submissions>
 - Overall progress: <Epic 1 complete, Epic 2 in progress>
 
 ## What's Working
