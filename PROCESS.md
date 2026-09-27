@@ -50,5 +50,4 @@
 | 1.2 | Done | Guide signup/login, JWT issuance, initial `verification_status = pending` |
 | 1.3 | Done | Admin login (no public signup path) |
 | 1.4 | Done | Refresh token flow + logout/session revocation |
-| 1.5 | In Progress | Auth middleware: role + ownership derivation from session on every protected route |
-| 1.4 | Done | Refresh token flow + logout/session revocation |
+| 1.5 | Done | Auth middleware: role + ownership derivation from session on every protected route |
