@@ -18,6 +18,7 @@ from app.core.security import (
 )
 from app.models.user import User, RoleEnum
 from app.schemas.user import UserCreate, User as UserSchema, Token
+from app.core.dependencies import get_current_tourist
 
 router = APIRouter()
 
@@ -60,6 +61,14 @@ def tourist_signup(user_in: UserCreate, db: Session = Depends(get_db)):
         "refresh_token": refresh_token,
         "token_type": "bearer",
     }
+
+
+@router.get("/me", response_model=UserSchema)
+def get_current_user_info(current_user: User = Depends(get_current_tourist)):
+    """
+    Get current user's information.
+    """
+    return current_user
 
 
 @router.post("/login", response_model=Token)

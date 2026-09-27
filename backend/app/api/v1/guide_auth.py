@@ -19,6 +19,7 @@ from app.core.security import (
 from app.models.user import User, RoleEnum
 from app.models.guide_profile import GuideProfile
 from app.schemas.user import UserCreate, Token
+from app.core.dependencies import get_current_guide
 
 router = APIRouter()
 
@@ -70,6 +71,14 @@ def guide_signup(user_in: UserCreate, db: Session = Depends(get_db)):
         "refresh_token": refresh_token,
         "token_type": "bearer",
     }
+
+
+@router.get("/me", response_model=UserSchema)
+def get_current_user_info(current_user: User = Depends(get_current_guide)):
+    """
+    Get current user's information.
+    """
+    return current_user
 
 
 @router.post("/login", response_model=Token)

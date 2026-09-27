@@ -1,8 +1,8 @@
 # Connect — Build Process Log
 
 ## Current Status
-- Last completed ticket: <epic 1.3 — Admin login (no public signup path)>
-- Next ticket to start: <epic 1.4 — Refresh token flow + logout/session revocation>
+- Last completed ticket: <epic 1.4 — Refresh token flow + logout/session revocation>
+- Next ticket to start: <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
 - Overall progress: <Epic 0 complete, Epic 1 in progress>
 
 ## What's Working
@@ -18,7 +18,7 @@
 - Admin login endpoint (no public signup path) with JWT token issuance
 
 ## What's In Progress / Partially Done
-- <none>
+- <epic 1.5 — Auth middleware: role + ownership derivation from session on every protected route>
 
 ## Decisions & Deviations
 - Used JWT for stateless authentication (as per TAD)
@@ -49,3 +49,6 @@
 | 1.1 | Done | Tourist signup/login (email+password), JWT issuance |
 | 1.2 | Done | Guide signup/login, JWT issuance, initial `verification_status = pending` |
 | 1.3 | Done | Admin login (no public signup path) |
+| 1.4 | Done | Refresh token flow + logout/session revocation |
+| 1.5 | In Progress | Auth middleware: role + ownership derivation from session on every protected route |
+| 1.4 | Done | Refresh token flow + logout/session revocation |

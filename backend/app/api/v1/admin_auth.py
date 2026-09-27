@@ -18,6 +18,7 @@ from app.core.security import (
 )
 from app.models.user import User, RoleEnum
 from app.schemas.user import Token
+from app.core.dependencies import get_current_admin
 
 router = APIRouter()
 
@@ -61,3 +62,11 @@ def admin_login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
         "refresh_token": refresh_token,
         "token_type": "bearer",
     }
+
+
+@router.get("/me", response_model=UserSchema)
+def get_current_user_info(current_user: User = Depends(get_current_admin)):
+    """
+    Get current user's information.
+    """
+    return current_user
