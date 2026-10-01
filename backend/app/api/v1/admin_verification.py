@@ -8,6 +8,7 @@ from typing import List, Optional
 from app.db.session import get_db
 from app.models.user import User, RoleEnum
 from app.models.guide_profile import GuideProfile
+from app.models.verification_audit_log import VerificationAuditLog
 from app.core.dependencies import get_current_admin
 from app.schemas.user import UserBase
 
@@ -99,8 +100,15 @@ def approve_guide(
 
     # Update verification status
     guide_profile.verification_status = "approved"
-    # In a real app, we might store the reason in an audit log table
-    # For now, we'll just note it in the response
+
+    # Write to audit log
+    audit_entry = VerificationAuditLog(
+        guide_id=guide_id,
+        admin_id=current_admin.id,
+        action="approved",
+        reason=reason
+    )
+    db.add(audit_entry)
 
     db.commit()
     db.refresh(guide_profile)
@@ -170,7 +178,15 @@ def reject_guide(
 
     # Update verification status
     guide_profile.verification_status = "rejected"
-    # In a real app, we would store the reason in an audit log table
+
+    # Write to audit log (reason is required for rejection)
+    audit_entry = VerificationAuditLog(
+        guide_id=guide_id,
+        admin_id=current_admin.id,
+        action="rejected",
+        reason=reason
+    )
+    db.add(audit_entry)
 
     db.commit()
     db.refresh(guide_profile)

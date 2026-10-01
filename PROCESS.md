@@ -1,8 +1,8 @@
 # Connect — Build Process Log
 
 ## Current Status
-- Last completed ticket: <epic 2.2 — Admin verification queue endpoint + UI: list pending submissions>
-- Next ticket to start: <epic 2.3 — Admin approve/reject action with reason, writes to audit log>
+- Last completed ticket: <epic 2.3 — Admin approve/reject action with reason, writes to audit log>
+- Next ticket to start: <epic 2.4 — Guide-side verification status screen (pending/approved/rejected + reason)>
 - Overall progress: <Epic 1 complete, Epic 2 in progress>
 
 ## What's Working
@@ -18,9 +18,10 @@
 - Admin login endpoint (no public signup path) with JWT token issuance
 - Admin verification queue: GET /admin/verification/queue, PUT /admin/verification/{guide_id}/approve, PUT /admin/verification/{guide_id}/reject with required reason
 - Connect Admin web app: login screen, verification queue UI with document links, approve/reject actions, status chips, auth state management with token refresh
+- VerificationAuditLog model: tracks admin verification actions (guide_id, admin_id, action, reason, timestamp) with foreign keys to users table
 
 ## What's In Progress / Partially Done
-- <epic 2.3 — Admin approve/reject action with reason, writes to audit log> (Next)
+- <epic 2.4 — Guide-side verification status screen (pending/approved/rejected + reason)> (Next)
 
 ## Decisions & Deviations
 - Used JWT for stateless authentication (as per TAD)
@@ -56,3 +57,4 @@
 | 1.5 | Done | Auth middleware: role + ownership derivation from session on every protected route |
 | 2.1 | Done | Guide onboarding flow: profile info + document upload to private object storage (Completed: storage service, config updates, API endpoints, mobile onboarding screen) |
 | 2.2 | Done | Admin verification queue endpoint + UI: list pending submissions (Backend: GET /admin/verification/queue, PUT approve/reject endpoints. Frontend: React app scaffolded with login, verification queue UI, StatusChip component, auth store with token refresh) |
+| 2.3 | Done | Admin approve/reject action with reason, writes to audit log (Created VerificationAuditLog model with migration, integrated into approve/reject endpoints to log all admin verification actions) |
