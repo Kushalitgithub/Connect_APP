@@ -1,13 +1,13 @@
 # Connect — Build Process Log
 
 ## Current Status
-- Last completed ticket: <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage>
-- Next ticket to start: <epic 2.2 — Admin verification queue endpoint + UI: list pending submissions>
+- Last completed ticket: <epic 2.2 — Admin verification queue endpoint + UI: list pending submissions>
+- Next ticket to start: <epic 2.3 — Admin approve/reject action with reason, writes to audit log>
 - Overall progress: <Epic 1 complete, Epic 2 in progress>
 
 ## What's Working
 - Ponytail plugin installed and active
-- Repository layout created: backend (FastAPI), web/connect_admin, mobile/connect_user, mobile/connect_guide
+- Repository layout created: backend (FastAPI), web/connect_admin (React+Vite+Tailwind CSS 4), mobile/connect_user (Expo), mobile/connect_guide (Expo)
 - PostgreSQL schema + Alembic migration setup with base models (User, GuideProfile, TourListing, Availability, Booking, ChatThread, Message)
 - Env config scaffolding (.env.example for all four apps) and docker-compose for local Postgres
 - create_admin.py bootstrap script created
@@ -16,9 +16,11 @@
 - Tourist signup and login endpoints with JWT token issuance (access and refresh tokens)
 - Guide signup and login endpoints with JWT token issuance (access and refresh tokens) and automatic creation of GuideProfile with verification_status = pending
 - Admin login endpoint (no public signup path) with JWT token issuance
+- Admin verification queue: GET /admin/verification/queue, PUT /admin/verification/{guide_id}/approve, PUT /admin/verification/{guide_id}/reject with required reason
+- Connect Admin web app: login screen, verification queue UI with document links, approve/reject actions, status chips, auth state management with token refresh
 
 ## What's In Progress / Partially Done
-- <epic 2.1 — Guide onboarding flow: profile info + document upload to private object storage> (Started implementation)
+- <epic 2.3 — Admin approve/reject action with reason, writes to audit log> (Next)
 
 ## Decisions & Deviations
 - Used JWT for stateless authentication (as per TAD)
@@ -52,4 +54,5 @@
 | 1.3 | Done | Admin login (no public signup path) |
 | 1.4 | Done | Refresh token flow + logout/session revocation |
 | 1.5 | Done | Auth middleware: role + ownership derivation from session on every protected route |
-| 2.1 | In Progress | Guide onboarding flow: profile info + document upload to private object storage (Started implementation: storage service, config updates, API endpoints) |
+| 2.1 | Done | Guide onboarding flow: profile info + document upload to private object storage (Completed: storage service, config updates, API endpoints, mobile onboarding screen) |
+| 2.2 | Done | Admin verification queue endpoint + UI: list pending submissions (Backend: GET /admin/verification/queue, PUT approve/reject endpoints. Frontend: React app scaffolded with login, verification queue UI, StatusChip component, auth store with token refresh) |

@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  /* Design tokens from Connect_Frontend_Spec.md §2 */
+  --color-primary: #f54900;
+  --color-primary-light: #ff6b2b;
+  --color-primary-dark: #c23900;
+  --color-accent: #f4a261;
+  --color-accent-light: #f7bc8a;
+  --color-accent-dark: #e08040;
+  --color-background: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0ede6;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #9aa3b2;
+  --color-border: #e8e4dc;
+  --color-error: #e05252;
+  --color-pending: #f59e0b;
+  --color-star: #fbbf24;
+
+  /* Status chip colors */
+  --color-status-pending-bg: #fef3c7;
+  --color-status-pending-text: #92400e;
+  --color-status-accepted-bg: #d1fae5;
+  --color-status-accepted-text: #065f46;
+  --color-status-rejected-bg: #fee2e2;
+  --color-status-rejected-text: #991b1b;
+  --color-status-completed-bg: #e0f2fe;
+  --color-status-completed-text: #0369a1;
+  --color-status-cancelled-bg: #f3f4f6;
+  --color-status-cancelled-text: #6b7280;
+
+  /* Border radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-primary;
+    font-family: var(--font-sans);
+  }
+}
